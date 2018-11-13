@@ -4,10 +4,68 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_bright">
 
+    <LinearLayout
+        android:id="@+id/linearatasakun"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/images"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_launcher_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtnamaakun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Nama" />
+
+            <TextView
+                android:id="@+id/txtnimakun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Nim" />
+
+            <TextView
+                android:id="@+id/txtkelasakun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kelas" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
     <TextView
+        android:id="@+id/txtriwayat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="USer"
-        android:layout_centerInParent="true"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/linearatasakun"
+        android:text="Riwayat" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/txtriwayat"
+        />
 
 </RelativeLayout>
