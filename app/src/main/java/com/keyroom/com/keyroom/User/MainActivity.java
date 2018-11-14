@@ -18,9 +18,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ActionBar actBar = getSupportActionBar();
-        actBar.hide();
-
         getSupportFragmentManager().beginTransaction().replace(R.id.frament_container_user,new HomeFragmentUser()).commit();
         BottomNavigationView botNav = findViewById(R.id.bottom_navigation);
         botNav.setOnNavigationItemSelectedListener(navListener);

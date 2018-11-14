@@ -5,18 +5,83 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.keyroom.com.keyroom.Adapter.RecyclerAdapterKelas;
+import com.keyroom.com.keyroom.Listener.ClickListener;
+import com.keyroom.com.keyroom.Listener.RecyclerTouchListener;
+import com.keyroom.com.keyroom.Model.GetKelas;
+import com.keyroom.com.keyroom.Model.Kelas;
 import com.keyroom.com.keyroom.R;
+import com.keyroom.com.keyroom.Rest.ApiClient;
+import com.keyroom.com.keyroom.Rest.ApiInterface;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragmentUser extends Fragment {
 
-    @Nullable
+    View v;
+
+    public HomeFragmentUser(){  }
+
+    private ApiInterface mApiInterface;
+    private RecyclerView mRecyclerView;
+    private RecyclerAdapterKelas mAdapter;
+    private List<Kelas> mKelas = new ArrayList<>();;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home_user,container,false);
+        v = inflater.inflate(R.layout.fragment_home_user,container,false);
+        mRecyclerView = v.findViewById(R.id.recyler_home_user);
+        initialize();
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), mRecyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int posi) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frament_container_user,new DetailRuangFragmentUser()).commit();
+            }
+            @Override
+            public void onLongClick(View view, int posi) { }
+        }));
+        return v;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    public void initialize(){
+        mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<GetKelas> getKelas = mApiInterface.getKelas();
+        getKelas.enqueue(new Callback<GetKelas>() {
+            @Override
+            public void onResponse(Call<GetKelas> call, Response<GetKelas> response) {
+                mKelas = response.body().getListDataKelas();
+                mAdapter = new RecyclerAdapterKelas(mKelas,getContext());
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                mRecyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<GetKelas> call, Throwable t) {
+                Log.e("Retrofit Get", t.toString());
+            }
+        });
     }
 }
