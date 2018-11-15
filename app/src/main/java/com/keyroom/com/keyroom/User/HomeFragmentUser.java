@@ -36,9 +36,6 @@ import retrofit2.Response;
 public class HomeFragmentUser extends Fragment {
 
     View v;
-
-    public HomeFragmentUser(){  }
-
     private ApiInterface mApiInterface;
     private RecyclerView mRecyclerView;
     private RecyclerAdapterKelas mAdapter;
@@ -48,11 +45,22 @@ public class HomeFragmentUser extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_home_user,container,false);
         mRecyclerView = v.findViewById(R.id.recyler_home_user);
-        initialize();
+
+        initialize(); // initialize isi recycler
+
+        // recycler touchlistener
         mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), mRecyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int posi) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frament_container_user,new DetailRuangFragmentUser()).commit();
+                Bundle bundle = new Bundle();
+                bundle.putString("id",mKelas.get(posi).getId());  // mengisi string yang akan dikirim
+
+                DetailRuangFragmentUser detailfrag = new DetailRuangFragmentUser();
+                detailfrag.setArguments(bundle); // memasukkan bundle ke fragment detail ruangan
+
+                getActivity().getSupportFragmentManager().beginTransaction().
+                        add(R.id.frament_container_user,detailfrag).commit();
+                        //replace(R.id.frament_container_user,new DetailRuangFragmentUser()).commit();
             }
             @Override
             public void onLongClick(View view, int posi) { }
@@ -60,10 +68,8 @@ public class HomeFragmentUser extends Fragment {
         return v;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    public interface FragmentHomeListener{
+        void onInputSent(CharSequence input);
     }
 
     public void initialize(){
@@ -73,6 +79,7 @@ public class HomeFragmentUser extends Fragment {
             @Override
             public void onResponse(Call<GetKelas> call, Response<GetKelas> response) {
                 mKelas = response.body().getListDataKelas();
+
                 mAdapter = new RecyclerAdapterKelas(mKelas,getContext());
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 mRecyclerView.setAdapter(mAdapter);

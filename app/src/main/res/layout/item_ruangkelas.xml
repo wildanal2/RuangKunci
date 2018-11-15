@@ -9,7 +9,9 @@
     app:cardCornerRadius="5dp"
     app:cardPreventCornerOverlap="true"
     app:cardElevation="10dp"
-    app:cardMaxElevation="10dp">
+    app:cardMaxElevation="10dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
 
 
     <LinearLayout

@@ -1,5 +1,6 @@
 package com.keyroom.com.keyroom.Rest;
 
+import com.keyroom.com.keyroom.Model.GetDetailKelas;
 import com.keyroom.com.keyroom.Model.GetKelas;
 
 import retrofit2.Call;
@@ -21,5 +22,9 @@ public interface ApiInterface {
 //   get all Kelas
     @GET("Kelas/RuanganAll")
     Call<GetKelas> getKelas();
+
+    @FormUrlEncoded
+    @POST("Kelas/Ruangan")
+    Call<GetDetailKelas> getDetail(@Field("id") String id);
 
 }
