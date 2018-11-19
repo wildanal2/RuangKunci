@@ -32,7 +32,8 @@ public class RecyclerAdapterJadwal extends RecyclerView.Adapter<RecyclerAdapterJ
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Jadwal jdwl = mJadwal.get(position);
         holder.hari.setText(jdwl.getHari());
-        holder.waktu.setText(jdwl.getWaktu());
+        holder.waktu_start.setText(jdwl.getWaktu_mulai()+" -");
+        holder.waktu_end.setText(jdwl.getWaktu_selesai());
         holder.matakulah.setText(jdwl.getMatkul());
         holder.kelas.setText(jdwl.getKelas());
 //        holder.pengajar.setText(jdwl.getPengajar());
@@ -45,12 +46,13 @@ public class RecyclerAdapterJadwal extends RecyclerView.Adapter<RecyclerAdapterJ
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView hari,waktu,matakulah,kelas,pengajar;
+        TextView hari,waktu_start,waktu_end,matakulah,kelas,pengajar;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             hari = itemView.findViewById(R.id.txv_hari_jadwal);
-            waktu = itemView.findViewById(R.id.txv_waktu_jadwal);
+            waktu_start = itemView.findViewById(R.id.txv_waktumulai_jadwal);
+            waktu_end = itemView.findViewById(R.id.txv_waktuahir_jadwal);
             matakulah = itemView.findViewById(R.id.txv_matakuliah_jadwal);
             kelas =  itemView.findViewById(R.id.txv_kelas_jadwal);
 //            pengajar = itemView.findViewById(R.id.txv_pengajar_jadwal);

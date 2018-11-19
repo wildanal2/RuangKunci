@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="2dp"
-    android:layout_marginBottom="2px"
+    android:layout_marginVertical="2dp"
     android:background="#fff">
 
     <LinearLayout
@@ -12,38 +12,52 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:weightSum="5">
+        android:weightSum="4">
 
         <TextView
             android:id="@+id/txv_hari_jadwal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Senin"/>
+
+        <LinearLayout
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hari "/>
-        <TextView
-            android:id="@+id/txv_waktu_jadwal"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="waktu"/>
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/txv_waktumulai_jadwal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="waktu-start"/>
+            <TextView
+                android:id="@+id/txv_waktuahir_jadwal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="waktu-end"/>
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/txv_matakuliah_jadwal"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="matakuliah"/>
+            android:hint="matakuliah"/>
         <TextView
             android:id="@+id/txv_kelas_jadwal"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="kelas"/>
-        <!--<TextView-->
-            <!--android:id="@+id/txv_pengajar_jadwal"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="pengajar"/>-->
+            android:hint="kelas"/>
     </LinearLayout>
 
+    <View
+        android:layout_marginTop="3dp"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
 </LinearLayout>

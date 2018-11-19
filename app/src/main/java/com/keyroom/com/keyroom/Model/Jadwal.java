@@ -7,8 +7,10 @@ public class Jadwal {
     private String id;
     @SerializedName("hari")
     private String hari;
-    @SerializedName("waktu")
-    private String waktu;
+    @SerializedName("waktu_mulai")
+    private String waktu_mulai;
+    @SerializedName("waktu_selesai")
+    private String waktu_selesai;
     @SerializedName("matkul")
     private String matkul;
     @SerializedName("kelas")
@@ -16,13 +18,28 @@ public class Jadwal {
     @SerializedName("pengajar")
     private String pengajar;
 
-    public Jadwal(String id, String hari, String waktu, String matkul, String kelas, String pengajar) {
+    public Jadwal(String id, String hari, String waktu_mulai, String waktu_selesai, String matkul, String kelas, String pengajar) {
         this.id = id;
         this.hari = hari;
-        this.waktu = waktu;
+        this.waktu_mulai = waktu_mulai;
+        this.waktu_selesai = waktu_selesai;
         this.matkul = matkul;
         this.kelas = kelas;
         this.pengajar = pengajar;
+    }
+
+    public String getWaktu_mulai() {
+        return waktu_mulai;
+    }
+    public void setWaktu_mulai(String waktu_mulai) {
+        this.waktu_mulai = waktu_mulai;
+    }
+
+    public String getWaktu_selesai() {
+        return waktu_selesai;
+    }
+    public void setWaktu_selesai(String waktu_selesai) {
+        this.waktu_selesai = waktu_selesai;
     }
 
     public String getId() {
@@ -37,13 +54,6 @@ public class Jadwal {
     }
     public void setHari(String hari) {
         this.hari = hari;
-    }
-
-    public String getWaktu() {
-        return waktu;
-    }
-    public void setWaktu(String waktu) {
-        this.waktu = waktu;
     }
 
     public String getMatkul() {
