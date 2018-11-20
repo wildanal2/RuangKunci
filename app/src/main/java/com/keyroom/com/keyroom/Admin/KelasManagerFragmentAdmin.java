@@ -1,10 +1,12 @@
-package com.keyroom.com.keyroom.User;
+package com.keyroom.com.keyroom.Admin;
 
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,11 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.keyroom.com.keyroom.Adapter.RecyclerAdapterKelas;
+import com.keyroom.com.keyroom.Adapter.RecyclerAdapterKelasManager;
+import com.keyroom.com.keyroom.Listener.ClickListener;
+import com.keyroom.com.keyroom.Listener.RecyclerTouchListener;
 import com.keyroom.com.keyroom.Model.GetKelas;
 import com.keyroom.com.keyroom.Model.Kelas;
 import com.keyroom.com.keyroom.R;
 import com.keyroom.com.keyroom.Rest.ApiClient;
 import com.keyroom.com.keyroom.Rest.ApiInterface;
+import com.keyroom.com.keyroom.User.DetailRuangFragmentUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,23 +32,32 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-public class SearchFragmentUser extends Fragment {
+public class KelasManagerFragmentAdmin extends Fragment {
 
     View v;
     private ApiInterface mApiInterface;
     private RecyclerView mRecyclerView;
-    private RecyclerAdapterKelas mAdapter;
+    private RecyclerAdapterKelasManager mAdapter;
     private List<Kelas> mKelas = new ArrayList<>();;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_search_user,container,false);
-        mRecyclerView = v.findViewById(R.id.recyler_search_user);
+        v = inflater.inflate(R.layout.fragment_admin_kelasmanger,container,false);
+        mRecyclerView = v.findViewById(R.id.rcycler_kelasmanager);
 
-        initialize();
+        FloatingActionButton btn_addkelas = v.findViewById(R.id.btn_newkelas_admin);
+        btn_addkelas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().
+                        replace(R.id.frament_container_admin,new AddKelasFragmentAdmin()).commit();
+            }
+        });
+
+        initialize(); // initialize isi recycler
         return v;
     }
+
 
     public void initialize(){
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -52,8 +67,8 @@ public class SearchFragmentUser extends Fragment {
             public void onResponse(Call<GetKelas> call, Response<GetKelas> response) {
                 mKelas = response.body().getListDataKelas();
 
-                mAdapter = new RecyclerAdapterKelas(mKelas,getContext());
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                mAdapter = new RecyclerAdapterKelasManager(mKelas,getContext());
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
                 mRecyclerView.setAdapter(mAdapter);
             }
 

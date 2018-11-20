@@ -14,13 +14,14 @@ import com.keyroom.com.keyroom.Model.Kelas;
 import com.keyroom.com.keyroom.R;
 import com.keyroom.com.keyroom.Rest.ApiClient;
 
+import java.io.File;
 import java.util.List;
 
-public class RecyclerAdapterKelas extends RecyclerView.Adapter<RecyclerAdapterKelas.MyViewHolder> {
+public class RecyclerAdapterKelasManager extends RecyclerView.Adapter<RecyclerAdapterKelasManager.MyViewHolder> {
     private List<Kelas> mKelas;
     private Context mCntex;
 
-    public RecyclerAdapterKelas(List<Kelas> mKelas, Context mCntex) {
+    public RecyclerAdapterKelasManager(List<Kelas> mKelas, Context mCntex) {
         this.mKelas = mKelas;
         this.mCntex = mCntex;
     }
@@ -28,7 +29,7 @@ public class RecyclerAdapterKelas extends RecyclerView.Adapter<RecyclerAdapterKe
 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ruangkelas, parent, false);
+        View mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ruangkelas_admin, parent, false);
         MyViewHolder mViewHolder = new MyViewHolder(mView);
         return mViewHolder;
     }
@@ -45,15 +46,14 @@ public class RecyclerAdapterKelas extends RecyclerView.Adapter<RecyclerAdapterKe
     public int getItemCount() { return mKelas.size(); }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView img_poster,img_status;
-        TextView namakelas,nama_lab,lokasi;
+        ImageView img_poster;
+        TextView namakelas,lokasi;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            img_poster = itemView.findViewById(R.id.img_fotoruang_item);
-            img_status = itemView.findViewById(R.id.img_status_item);
-            namakelas = itemView.findViewById(R.id.txv_namaruang_item);
-            lokasi = itemView.findViewById(R.id.txv_namaLokasi_item);
+            img_poster = itemView.findViewById(R.id.img_fotoruang_item_admin);
+            namakelas = itemView.findViewById(R.id.txv_namaruang_item_admin);
+            lokasi = itemView.findViewById(R.id.txv_namaLokasi_item_admin);
         }
     }
 }
