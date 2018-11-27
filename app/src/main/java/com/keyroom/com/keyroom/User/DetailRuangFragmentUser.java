@@ -12,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.keyroom.com.keyroom.Adapter.RecyclerAdapterJadwal;
 import com.keyroom.com.keyroom.Adapter.RecyclerAdapterKelas;
 import com.keyroom.com.keyroom.Model.GetDetailKelas;
@@ -49,6 +51,7 @@ public class DetailRuangFragmentUser extends Fragment {
 
     public void initialize(){
         //init
+        final ImageView img_poster = viw.findViewById(R.id.img_detailruang_user);
         final TextView txv_namaruangan = viw.findViewById(R.id.txv_namaruang_detail);
         final TextView txv_lokasi = viw.findViewById(R.id.txv_lokasi_detail);
         final RecyclerView mRecyclerView = viw.findViewById(R.id.recycler_jadwl_detail);
@@ -63,6 +66,7 @@ public class DetailRuangFragmentUser extends Fragment {
                 List<Jadwal> mjadwal = response.body().getListDatajadwal();
 
                 // set textview
+                Glide.with(getContext()).load(ApiClient.BASE_ASSETS+mKelas.getImg()).into(img_poster);
                 txv_namaruangan.setText(mKelas.getRuang());
                 txv_lokasi.setText("Lokasi : "+mKelas.getLokasi());
 

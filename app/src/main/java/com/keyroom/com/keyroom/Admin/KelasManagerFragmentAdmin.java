@@ -43,24 +43,50 @@ public class KelasManagerFragmentAdmin extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_admin_kelasmanger,container,false);
-        mRecyclerView = v.findViewById(R.id.rcycler_kelasmanager);
 
+        init_recycler(); // initialize isi recycler
+        init_listener(); // initialize touchListener
+        return v;
+    }
+
+    public void init_listener(){
+
+        // recycler touchlistener
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), mRecyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int posi) {
+                Bundle bundle = new Bundle();
+                bundle.putString("id",mKelas.get(posi).getId());  // mengisi string yang akan dikirim
+
+                DetailRuangFragmentAdmin detailfragAdm = new DetailRuangFragmentAdmin();
+                detailfragAdm.setArguments(bundle); // memasukkan bundle ke fragment detail ruangan
+
+                getActivity().getSupportFragmentManager().beginTransaction().
+                        replace(R.id.frament_container_admin,detailfragAdm).addToBackStack(null).commit();
+            }
+            @Override
+            public void onLongClick(View view, int posi) { }
+        }));
+
+        // tambah data touchlistener
         FloatingActionButton btn_addkelas = v.findViewById(R.id.btn_newkelas_admin);
         btn_addkelas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager().beginTransaction().
-                        replace(R.id.frament_container_admin,new AddKelasFragmentAdmin()).commit();
+                        replace(R.id.frament_container_admin,new AddKelasFragmentAdmin()).addToBackStack(null).commit();
             }
         });
 
-        initialize(); // initialize isi recycler
-        return v;
     }
 
 
-    public void initialize(){
+
+    public void init_recycler(){
+        // mengambil dari layout
+        mRecyclerView = v.findViewById(R.id.rcycler_kelasmanager);
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+
         Call<GetKelas> getKelas = mApiInterface.getKelas();
         getKelas.enqueue(new Callback<GetKelas>() {
             @Override
@@ -78,4 +104,6 @@ public class KelasManagerFragmentAdmin extends Fragment {
             }
         });
     }
+
+
 }

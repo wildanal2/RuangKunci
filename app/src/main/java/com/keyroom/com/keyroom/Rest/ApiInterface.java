@@ -2,6 +2,8 @@ package com.keyroom.com.keyroom.Rest;
 
 import com.keyroom.com.keyroom.Model.GetDetailKelas;
 import com.keyroom.com.keyroom.Model.GetKelas;
+import com.keyroom.com.keyroom.Model.PostPutDellFasilitas;
+import com.keyroom.com.keyroom.Model.PostPutDellJadwal;
 import com.keyroom.com.keyroom.Model.PostPutDellKelas;
 
 import okhttp3.MultipartBody;
@@ -39,5 +41,23 @@ public interface ApiInterface {
                                        @Part("ruang") RequestBody ruang,
                                        @Part("nama_lab") RequestBody nama_lab,
                                        @Part("lokasi")  RequestBody lokasi);
+//    POst Fasilitas
+    @FormUrlEncoded
+    @POST("Fasilitas")
+    Call<PostPutDellFasilitas> postFasilitas (@Field("id_ruang") String id_ruang,
+                                             @Field("nama_fasilitas") String nama_fasilitas,
+                                             @Field("jumlah") String jumlah);
+    //    POst Jadwal
+    @FormUrlEncoded
+    @POST("Jadwal")
+    Call<PostPutDellJadwal> postJadwal (@Field("id_kelas") String id_kelas,
+                                        @Field("hari") String hari,
+                                        @Field("waktu_mulai") String waktu_mulai,
+                                        @Field("waktu_selesai") String waktu_selesai,
+                                        @Field("matkul") String matkul,
+                                        @Field("sks") String sks,
+                                        @Field("jam") String jam,
+                                        @Field("kelas") String kelas,
+                                        @Field("pengajar") String pengajar);
 
 }
