@@ -22,7 +22,7 @@ public class MainDemo extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(i);
-                finish();
+
             }
         });
 
@@ -32,7 +32,7 @@ public class MainDemo extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(),MainAdminActivity.class);
                 startActivity(i);
-                finish();
+
             }
         });
     }

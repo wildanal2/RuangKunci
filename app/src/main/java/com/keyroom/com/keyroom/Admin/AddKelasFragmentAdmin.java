@@ -1,6 +1,7 @@
 package com.keyroom.com.keyroom.Admin;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -79,6 +80,12 @@ public class AddKelasFragmentAdmin extends Fragment {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // progess dialog
+                final ProgressDialog process = new ProgressDialog(getActivity());
+                process.setTitle("Please Wait ..");
+                process.setMessage("uploading file..");
+                process.show();
+
                 MultipartBody.Part body_img = null;
                 // jika file upload tidak kosong
                 if (!imagePath.isEmpty()){
@@ -97,13 +104,16 @@ public class AddKelasFragmentAdmin extends Fragment {
                 newKelas.enqueue(new Callback<PostPutDellKelas>() {
                     @Override
                     public void onResponse(Call<PostPutDellKelas> call, Response<PostPutDellKelas> response) {
-                        Toast.makeText(getContext(), "Sukses ",Toast.LENGTH_LONG).show();
+                        process.hide();
+                        Toast.makeText(getContext(), "Sukses :"+response.body().getStatus()+" mssage : "+response.body().getMessage(),Toast.LENGTH_LONG).show();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frament_container_admin,new KelasManagerFragmentAdmin()).commit();
                     }
 
                     @Override
                     public void onFailure(Call<PostPutDellKelas> call, Throwable t) {
+                        process.hide();
+                        Toast.makeText(getContext(), "Something Worng  "+t.getMessage(),Toast.LENGTH_LONG).show();
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frament_container_admin,new KelasManagerFragmentAdmin()).commit();
-//                        Toast.makeText(getContext(), "Something Worng  "+t.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 });
             }
