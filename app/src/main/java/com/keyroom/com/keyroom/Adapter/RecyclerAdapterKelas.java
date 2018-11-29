@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,15 +16,18 @@ import com.keyroom.com.keyroom.Model.Kelas;
 import com.keyroom.com.keyroom.R;
 import com.keyroom.com.keyroom.Rest.ApiClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerAdapterKelas extends RecyclerView.Adapter<RecyclerAdapterKelas.MyViewHolder> {
+public class RecyclerAdapterKelas extends RecyclerView.Adapter<RecyclerAdapterKelas.MyViewHolder> implements Filterable {
     private List<Kelas> mKelas;
+    private List<Kelas> mKelasFull;
     private Context mCntex;
 
     public RecyclerAdapterKelas(List<Kelas> mKelas, Context mCntex) {
         this.mKelas = mKelas;
         this.mCntex = mCntex;
+        mKelasFull = new ArrayList<>(mKelas);
     }
 
 
@@ -56,4 +61,42 @@ public class RecyclerAdapterKelas extends RecyclerView.Adapter<RecyclerAdapterKe
             lokasi = itemView.findViewById(R.id.txv_namaLokasi_item);
         }
     }
+
+
+    @Override
+    public Filter getFilter() {
+        return mKelasFilter;
+    }
+
+    // proses filtered
+    private  Filter mKelasFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charinput) {
+            List<Kelas> filteredKelas  = new ArrayList<>();
+
+            if (charinput == null || charinput.length() == 0){ // jika search kosong
+                filteredKelas.addAll(mKelasFull);
+            }else {
+                String textfilter = charinput.toString().toLowerCase().trim();
+                for (Kelas kls : mKelasFull){
+                    if (kls.getRuang().toLowerCase().contains(textfilter)){
+                        filteredKelas.add(kls);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredKelas;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            mKelas.clear();
+            mKelas.addAll((List) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
+
 }

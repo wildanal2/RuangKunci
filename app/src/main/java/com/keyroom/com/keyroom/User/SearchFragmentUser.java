@@ -7,8 +7,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -60,6 +62,20 @@ public class SearchFragmentUser extends Fragment {
             @Override
             public void onFailure(Call<GetKelas> call, Throwable t) {
                 Log.e("Retrofit Get", t.toString());
+            }
+        });
+
+        SearchView searchkls = v.findViewById(R.id.search_kelasuser);
+        searchkls.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mAdapter.getFilter().filter(newText);
+                return false;
             }
         });
     }
