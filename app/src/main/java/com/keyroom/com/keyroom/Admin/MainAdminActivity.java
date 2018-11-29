@@ -40,7 +40,7 @@ public class MainAdminActivity extends AppCompatActivity {
                             selectedfragment = new KelasManagerFragmentAdmin();
                             break;
                         case R.id.nav_setting_admin:
-                            selectedfragment = new KelasManagerFragmentAdmin();
+                            selectedfragment = new setting_admin();
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.frament_container_admin,selectedfragment).commit();
