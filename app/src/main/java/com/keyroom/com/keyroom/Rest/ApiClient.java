@@ -8,8 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL = "http://192.168.63.92/ruangkunci_service/index.php/";
-    public static final String BASE_ASSETS = "http://192.168.63.92/ruangkunci_service/Assets/";
+    public static final String BASE_URL = "http://192.168.43.190/ruangkunci_service/index.php/";
+    public static final String BASE_ASSETS = "http://192.168.43.190/ruangkunci_service/Assets/";
     private static Retrofit retrofit = null;
 
     static Gson gson = new GsonBuilder()

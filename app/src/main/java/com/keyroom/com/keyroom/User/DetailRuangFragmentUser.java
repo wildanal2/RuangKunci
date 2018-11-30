@@ -16,8 +16,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.keyroom.com.keyroom.Adapter.RecyclerAdapterFasilitas;
 import com.keyroom.com.keyroom.Adapter.RecyclerAdapterJadwal;
 import com.keyroom.com.keyroom.Adapter.RecyclerAdapterKelas;
+import com.keyroom.com.keyroom.Model.Fasilitas;
 import com.keyroom.com.keyroom.Model.GetDetailKelas;
 import com.keyroom.com.keyroom.Model.Jadwal;
 import com.keyroom.com.keyroom.Model.Kelas;
@@ -55,6 +57,7 @@ public class DetailRuangFragmentUser extends Fragment {
         final TextView txv_namaruangan = viw.findViewById(R.id.txv_namaruang_detail);
         final TextView txv_lokasi = viw.findViewById(R.id.txv_lokasi_detail);
         final RecyclerView mRecyclerView = viw.findViewById(R.id.recycler_jadwl_detail);
+        final RecyclerView mRecyclerViewFasilitas = viw.findViewById(R.id.recycler_fasilitas_detail_user);
 
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
 
@@ -64,6 +67,7 @@ public class DetailRuangFragmentUser extends Fragment {
             public void onResponse(Call<GetDetailKelas> call, Response<GetDetailKelas> response) {
                 mKelas = response.body().getDataKelas();
                 List<Jadwal> mjadwal = response.body().getListDatajadwal();
+                List<Fasilitas> mFasilitas = response.body().getListFasilitas();
 
                 // set textview
                 Glide.with(getContext()).load(ApiClient.BASE_ASSETS+mKelas.getImg()).into(img_poster);
@@ -74,6 +78,12 @@ public class DetailRuangFragmentUser extends Fragment {
                 RecyclerAdapterJadwal mAdapter = new RecyclerAdapterJadwal(mjadwal);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 mRecyclerView.setAdapter(mAdapter);
+
+                // init recycler Fasilitas
+                RecyclerAdapterFasilitas mAdapterFasilitas = new RecyclerAdapterFasilitas(getContext(),mFasilitas);
+                mRecyclerViewFasilitas.setLayoutManager(new LinearLayoutManager(getActivity()));
+                mRecyclerViewFasilitas.setAdapter(mAdapterFasilitas);
+
             }
 
             @Override

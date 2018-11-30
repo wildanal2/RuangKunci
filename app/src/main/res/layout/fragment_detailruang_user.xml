@@ -193,6 +193,7 @@
                         android:layout_height="wrap_content"
                         android:text="Fasilitas kelas :"/>
                     <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_fasilitas_detail_user"
                         android:layout_width="match_parent"
                         android:layout_height="130dp"/>
                 </LinearLayout>
