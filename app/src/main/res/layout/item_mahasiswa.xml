@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginVertical="5dp"
     android:layout_marginLeft="10dp"
     android:orientation="horizontal"
@@ -11,7 +11,10 @@
         android:id="@+id/image_profil_mhsitm"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:src="@drawable/ic_launcher_background"/>
+        android:src="@drawable/ic_launcher_background"
+        app:civ_border_width="1px"
+        app:civ_border_color="@color/colorPrimary"/>
+
     <LinearLayout
         android:layout_marginLeft="10dp"
         android:orientation="vertical"
@@ -30,9 +33,9 @@
             android:hint="Nim : 1645218484"/>
         <View
             android:layout_marginTop="3dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginRight="15dp"
             android:layout_width="match_parent"
             android:layout_height="2px"
-            android:background="#40669D"/>
+            android:background="@color/colorPrimary"/>
     </LinearLayout>
 </LinearLayout>

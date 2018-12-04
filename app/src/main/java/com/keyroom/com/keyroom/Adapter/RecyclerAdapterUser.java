@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.keyroom.com.keyroom.Model.User;
 import com.keyroom.com.keyroom.R;
 import com.keyroom.com.keyroom.Rest.ApiClient;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,10 @@ public class RecyclerAdapterUser extends RecyclerView.Adapter<RecyclerAdapterUse
         User usr = mUser.get(position);
         holder.nama.setText(usr.getNama());
         holder.nim.setText(usr.getNis());
-        Glide.with(mContex).load(ApiClient.BASE_ASSETS+usr.getImg()).into(holder.img);
+        Picasso.get().load(ApiClient.BASE_ASSETS+usr.getImg())
+//                .placeholder(R.drawable.user_placeholder)
+                .error(R.drawable.ic_profil)
+                .into(holder.img);
     }
 
     @Override
