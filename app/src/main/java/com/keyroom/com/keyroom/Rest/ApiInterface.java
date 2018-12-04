@@ -2,6 +2,7 @@ package com.keyroom.com.keyroom.Rest;
 
 import com.keyroom.com.keyroom.Model.GetDetailKelas;
 import com.keyroom.com.keyroom.Model.GetKelas;
+import com.keyroom.com.keyroom.Model.GetUser;
 import com.keyroom.com.keyroom.Model.PostPutDellFasilitas;
 import com.keyroom.com.keyroom.Model.PostPutDellJadwal;
 import com.keyroom.com.keyroom.Model.PostPutDellKelas;
@@ -59,5 +60,9 @@ public interface ApiInterface {
                                         @Field("jam") String jam,
                                         @Field("kelas") String kelas,
                                         @Field("pengajar") String pengajar);
+
+    //   get all User
+    @GET("User/UserAll")
+    Call<GetUser> getUser();
 
 }
