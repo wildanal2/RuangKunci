@@ -6,6 +6,7 @@ import com.keyroom.com.keyroom.Model.GetUser;
 import com.keyroom.com.keyroom.Model.PostPutDellFasilitas;
 import com.keyroom.com.keyroom.Model.PostPutDellJadwal;
 import com.keyroom.com.keyroom.Model.PostPutDellKelas;
+import com.keyroom.com.keyroom.Model.PostPutDellUser;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -60,6 +61,15 @@ public interface ApiInterface {
                                         @Field("jam") String jam,
                                         @Field("kelas") String kelas,
                                         @Field("pengajar") String pengajar);
+
+    @FormUrlEncoded
+    @POST("User")
+    Call<PostPutDellUser> postUser (@Field("nim") String nim,
+                                    @Field("nama") String nama,
+                                    @Field("email") String email,
+                                    @Field("password") String password,
+                                    @Field("img") String emg,
+                                    @Field("level") String level);
 
     //   get all User
     @GET("User/UserAll")

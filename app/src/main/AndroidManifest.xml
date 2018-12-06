@@ -22,8 +22,8 @@
         </activity>
         <activity android:name=".User.MainActivity" />
         <activity android:name=".Admin.MainAdminActivity" />
-        <activity android:name=".new_mahasiswa" />
-        <activity android:name=".Admin.user_manager"></activity>
+        <activity android:name=".Admin.NewMahasiswa" />
+        <activity android:name=".Admin.UserManager"></activity>
     </application>
 
 </manifest>

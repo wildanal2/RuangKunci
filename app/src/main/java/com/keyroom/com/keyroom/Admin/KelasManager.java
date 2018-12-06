@@ -7,14 +7,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.keyroom.com.keyroom.Adapter.RecyclerAdapterKelas;
 import com.keyroom.com.keyroom.Adapter.RecyclerAdapterKelasManager;
 import com.keyroom.com.keyroom.Listener.ClickListener;
 import com.keyroom.com.keyroom.Listener.RecyclerTouchListener;
@@ -23,7 +21,6 @@ import com.keyroom.com.keyroom.Model.Kelas;
 import com.keyroom.com.keyroom.R;
 import com.keyroom.com.keyroom.Rest.ApiClient;
 import com.keyroom.com.keyroom.Rest.ApiInterface;
-import com.keyroom.com.keyroom.User.DetailRuangFragmentUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class KelasManagerFragmentAdmin extends Fragment {
+public class KelasManager extends Fragment {
 
     View v;
     private ApiInterface mApiInterface;
@@ -58,7 +55,7 @@ public class KelasManagerFragmentAdmin extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("id",mKelas.get(posi).getId());  // mengisi string yang akan dikirim
 
-                DetailRuangFragmentAdmin detailfragAdm = new DetailRuangFragmentAdmin();
+                DetailRuang detailfragAdm = new DetailRuang();
                 detailfragAdm.setArguments(bundle); // memasukkan bundle ke fragment detail ruangan
 
                 getActivity().getSupportFragmentManager().beginTransaction().
@@ -74,7 +71,7 @@ public class KelasManagerFragmentAdmin extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager().beginTransaction().
-                        replace(R.id.frament_container_admin,new AddKelasFragmentAdmin()).addToBackStack(null).commit();
+                        replace(R.id.frament_container_admin,new AddKelas()).addToBackStack(null).commit();
             }
         });
 

@@ -1,16 +1,16 @@
 package com.keyroom.com.keyroom.Admin;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
-import com.keyroom.com.keyroom.Adapter.RecyclerAdapterKelas;
 import com.keyroom.com.keyroom.Adapter.RecyclerAdapterUser;
-import com.keyroom.com.keyroom.Model.GetKelas;
 import com.keyroom.com.keyroom.Model.GetUser;
-import com.keyroom.com.keyroom.Model.Kelas;
 import com.keyroom.com.keyroom.Model.User;
 import com.keyroom.com.keyroom.R;
 import com.keyroom.com.keyroom.Rest.ApiClient;
@@ -23,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class user_manager extends AppCompatActivity {
+public class UserManager extends AppCompatActivity {
     private ApiInterface mApiInterface;
     private RecyclerView mRecyclerView;
     private RecyclerAdapterUser mAdapter;
@@ -57,6 +57,16 @@ public class user_manager extends AppCompatActivity {
                 Log.e("Retrofit Get", t.toString());
             }
         });
+
+        FloatingActionButton b = findViewById(R.id.btn_new_mahasiswa);
+                b.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent ii = new Intent(UserManager.this,NewMahasiswa.class);
+                        startActivity(ii);
+                    }
+                });
+
     }
 
 }

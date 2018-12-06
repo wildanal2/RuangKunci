@@ -36,7 +36,7 @@ import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class AddKelasFragmentAdmin extends Fragment {
+public class AddKelas extends Fragment {
 
     View v;
     ApiInterface mApi;
@@ -106,14 +106,14 @@ public class AddKelasFragmentAdmin extends Fragment {
                     public void onResponse(Call<PostPutDellKelas> call, Response<PostPutDellKelas> response) {
                         process.hide();
                         Toast.makeText(getContext(), "Sukses :"+response.body().getStatus()+" mssage : "+response.body().getMessage(),Toast.LENGTH_LONG).show();
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frament_container_admin,new KelasManagerFragmentAdmin()).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frament_container_admin,new KelasManager()).commit();
                     }
 
                     @Override
                     public void onFailure(Call<PostPutDellKelas> call, Throwable t) {
                         process.hide();
                         Toast.makeText(getContext(), "Something Worng  "+t.getMessage(),Toast.LENGTH_LONG).show();
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frament_container_admin,new KelasManagerFragmentAdmin()).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frament_container_admin,new KelasManager()).commit();
                     }
                 });
             }
