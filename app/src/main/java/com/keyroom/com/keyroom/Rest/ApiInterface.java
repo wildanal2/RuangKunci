@@ -2,10 +2,12 @@ package com.keyroom.com.keyroom.Rest;
 
 import com.keyroom.com.keyroom.Model.GetDetailKelas;
 import com.keyroom.com.keyroom.Model.GetKelas;
+import com.keyroom.com.keyroom.Model.GetPeminjaman;
 import com.keyroom.com.keyroom.Model.GetUser;
 import com.keyroom.com.keyroom.Model.PostPutDellFasilitas;
 import com.keyroom.com.keyroom.Model.PostPutDellJadwal;
 import com.keyroom.com.keyroom.Model.PostPutDellKelas;
+import com.keyroom.com.keyroom.Model.PostPutDellPeminjaman;
 import com.keyroom.com.keyroom.Model.PostPutDellUser;
 
 import okhttp3.MultipartBody;
@@ -49,7 +51,7 @@ public interface ApiInterface {
     Call<PostPutDellFasilitas> postFasilitas (@Field("id_ruang") String id_ruang,
                                              @Field("nama_fasilitas") String nama_fasilitas,
                                              @Field("jumlah") String jumlah);
-    //    POst Jadwal
+//    POst Jadwal
     @FormUrlEncoded
     @POST("Jadwal")
     Call<PostPutDellJadwal> postJadwal (@Field("id_kelas") String id_kelas,
@@ -68,11 +70,29 @@ public interface ApiInterface {
                                     @Field("nama") String nama,
                                     @Field("email") String email,
                                     @Field("password") String password,
-                                    @Field("img") String emg,
+                                    @Field("img") String img,
+                                    @Field("kelas") String kelas,
                                     @Field("level") String level);
 
     //   get all User
     @GET("User/UserAll")
     Call<GetUser> getUser();
+
+//    POst Fasilitas
+    @FormUrlEncoded
+    @POST("Peminjaman/CariNim")
+    Call<PostPutDellUser> cariUser (@Field("nim") String nim);
+
+    //    Post meminjam
+    @Multipart
+    @POST("Peminjaman/Meminjam")
+    Call<PostPutDellPeminjaman> meminjamBaru(@Part MultipartBody.Part file,
+                                     @Part("id_kelas") RequestBody id_kelas,
+                                     @Part("id_user") RequestBody id_user,
+                                     @Part("status")  RequestBody status,
+                                     @Part("id_admin") RequestBody id_admin);
+    //   get all Peminjaman
+    @GET("Peminjaman")
+    Call<GetPeminjaman> getpeminjaman();
 
 }

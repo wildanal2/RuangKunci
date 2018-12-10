@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginVertical="3dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:weightSum="5">
+        <TextView
+            android:id="@+id/tv_nim"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="1641720075"/>
+        <TextView
+            android:id="@+id/tv_nama"
+            android:layout_weight="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Kevin Sanjaya"/>
+        <TextView
+            android:id="@+id/tv_kelas"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="TI-3C"/>
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Dipinjam"/>
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="3dp"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginHorizontal="8dp"/>
+
+</LinearLayout>

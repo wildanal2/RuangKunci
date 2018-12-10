@@ -55,7 +55,7 @@ public class KelasManager extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("id",mKelas.get(posi).getId());  // mengisi string yang akan dikirim
 
-                DetailRuang detailfragAdm = new DetailRuang();
+                DetailRuangManagerFragmentAdmin detailfragAdm = new DetailRuangManagerFragmentAdmin();
                 detailfragAdm.setArguments(bundle); // memasukkan bundle ke fragment detail ruangan
 
                 getActivity().getSupportFragmentManager().beginTransaction().

@@ -4,11 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
     @SerializedName("nim")
-    String nis;
+    String nim;
     @SerializedName("nama")
     String nama;
     @SerializedName("email")
     String email;
+    @SerializedName("kelas")
+    String kelas;
     @SerializedName("password")
     String password;
     @SerializedName("img")
@@ -16,21 +18,30 @@ public class User {
     @SerializedName("level")
     String level;
 
-    public User(String nis, String nama, String email, String password, String img, String level) {
-        this.nis = nis;
+    public User(String nim, String nama, String email, String kelas, String password, String img, String level) {
+        this.nim = nim;
         this.nama = nama;
         this.email = email;
+        this.kelas = kelas;
         this.password = password;
         this.img = img;
         this.level = level;
     }
 
-    public String getNis() {
-        return nis;
+    public String getKelas() {
+        return kelas;
     }
 
-    public void setNis(String nis) {
-        this.nis = nis;
+    public void setKelas(String kelas) {
+        this.kelas = kelas;
+    }
+
+    public String getNim() {
+        return nim;
+    }
+
+    public void setNim(String nim) {
+        this.nim = nim;
     }
 
     public String getNama() {

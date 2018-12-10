@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.keyroom.com.keyroom.Adapter.BottomNavigationViewHelper;
 import com.keyroom.com.keyroom.R;
 import com.keyroom.com.keyroom.User.HomeFragmentUser;
 import com.keyroom.com.keyroom.User.SearchFragmentUser;
@@ -19,8 +20,10 @@ public class MainAdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_admin);
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.frament_container_admin,new HomeAdmin()).commit();
         BottomNavigationView botNav = findViewById(R.id.bottom_navigation_admin);
         botNav.setOnNavigationItemSelectedListener(navListener);
+        BottomNavigationViewHelper.removeShiftMode(botNav);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -31,10 +34,10 @@ public class MainAdminActivity extends AppCompatActivity {
 
                     switch (item.getItemId()){
                         case R.id.nav_home_admin:
-                            selectedfragment = new HomeFragmentUser();
+                            selectedfragment = new HomeAdmin();
                             break;
                         case R.id.nav_search_admin:
-                            selectedfragment = new SearchFragmentUser();
+                            selectedfragment = new Peminjaman();
                             break;
                         case R.id.nav_kelas_admin:
                             selectedfragment = new KelasManager();

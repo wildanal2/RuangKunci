@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,7 +27,8 @@
         <activity android:name=".User.MainActivity" />
         <activity android:name=".Admin.MainAdminActivity" />
         <activity android:name=".Admin.NewMahasiswa" />
-        <activity android:name=".Admin.UserManager"></activity>
+        <activity android:name=".Admin.UserManager" />
+        <activity android:name=".Admin.MeminjamKelas"/>
     </application>
 
 </manifest>

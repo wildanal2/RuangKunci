@@ -19,7 +19,7 @@ import retrofit2.http.Field;
 
 public class NewMahasiswa extends AppCompatActivity {
 
-    EditText nim, nama, email, password;
+    EditText nim, nama, email, password,kelas;
     Button btn_save;
     private ApiInterface mApiInterface;
 
@@ -37,6 +37,7 @@ public class NewMahasiswa extends AppCompatActivity {
         nama = findViewById(R.id.editTextNama);
         email = findViewById(R.id.editTextEmail);
         password = findViewById(R.id.editTextPassword);
+        kelas = findViewById(R.id.editTextkelas);
 
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
     }
@@ -50,7 +51,9 @@ public class NewMahasiswa extends AppCompatActivity {
                                                                     nama.getText().toString(),
                                                                     email.getText().toString(),
                                                                     password.getText().toString(),
-                                                                    "","2");
+                                                                    "",
+                                                                    kelas.getText().toString(),
+                                                                    "2");
 
                 NewUser.enqueue(new Callback<PostPutDellUser>() {
                     @Override

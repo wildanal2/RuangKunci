@@ -13,6 +13,15 @@ public class GetDetailKelas {
     List<Jadwal> listDatajadwal;
     @SerializedName("fasilitas")
     List<Fasilitas> listFasilitas;
+    @SerializedName("riwayat")
+    List<Peminjaman> listPeminjaman;
+
+    public List<Peminjaman> getListPeminjaman() {
+        return listPeminjaman;
+    }
+    public void setListPeminjaman(List<Peminjaman> listPeminjaman) {
+        this.listPeminjaman = listPeminjaman;
+    }
 
     public String getStatus() {
         return status;

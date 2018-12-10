@@ -45,10 +45,10 @@ public class RecyclerAdapterUser extends RecyclerView.Adapter<RecyclerAdapterUse
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         User usr = mUser.get(position);
         holder.nama.setText(usr.getNama());
-        holder.nim.setText(usr.getNis());
+        holder.nim.setText(usr.getNim());
         Picasso.get().load(ApiClient.BASE_ASSETS+usr.getImg())
-//                .placeholder(R.drawable.user_placeholder)
-                .error(R.drawable.ic_profil)
+                .placeholder(R.drawable.ic_profil)
+ //               .error(R.drawable.ic_profil)
                 .into(holder.img);
     }
 
@@ -72,7 +72,7 @@ public class RecyclerAdapterUser extends RecyclerView.Adapter<RecyclerAdapterUse
             }else {
                 String textfilter = constraint.toString().toLowerCase().trim();
                 for (User usr : mUserFull){
-                    if (usr.getNis().toLowerCase().contains(textfilter)){
+                    if (usr.getNim().toLowerCase().contains(textfilter)){
                         filteredUser.add(usr);
                     }
                 }
