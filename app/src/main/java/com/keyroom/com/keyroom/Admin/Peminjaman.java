@@ -1,8 +1,10 @@
 package com.keyroom.com.keyroom.Admin;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 
 import com.keyroom.com.keyroom.Adapter.RecyclerAdapterKelas;
 import com.keyroom.com.keyroom.Adapter.RecyclerAdapterPeminjam;
+import com.keyroom.com.keyroom.Listener.ClickListener;
+import com.keyroom.com.keyroom.Listener.RecyclerTouchListener;
 import com.keyroom.com.keyroom.Model.GetKelas;
 import com.keyroom.com.keyroom.Model.GetPeminjaman;
 import com.keyroom.com.keyroom.R;
@@ -40,6 +44,7 @@ public class Peminjaman extends Fragment {
         mRecyclerView = v.findViewById(R.id.recyler_peminjaman_admin);
 
         initialize();
+        initializeListener();
         return v;
     }
 
@@ -66,4 +71,38 @@ public class Peminjaman extends Fragment {
 
     }
 
+    public void initializeListener(){
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), mRecyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int posi) {
+
+            }
+
+            @Override
+            public void onLongClick(View view, int posi) {
+                com.keyroom.com.keyroom.Model.Peminjaman p = mPeminjaman.get(posi);
+                final AlertDialog.Builder notif = new AlertDialog.Builder(getContext());
+                notif.setMessage("Kembalikan Kunci : "+p.getKelas()+"Yakin Akan Dikembalikan?" );
+                notif.setCancelable(false);
+                notif.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(getContext(), "Sukses", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+                notif.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        notif.create().hide();
+                    }
+                });
+
+                notif.create().show();
+
+            }
+        }));
+
+    }
 }
