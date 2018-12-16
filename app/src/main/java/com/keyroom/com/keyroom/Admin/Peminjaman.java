@@ -20,6 +20,7 @@ import com.keyroom.com.keyroom.Listener.ClickListener;
 import com.keyroom.com.keyroom.Listener.RecyclerTouchListener;
 import com.keyroom.com.keyroom.Model.GetKelas;
 import com.keyroom.com.keyroom.Model.GetPeminjaman;
+import com.keyroom.com.keyroom.Model.PostPutDellPeminjaman;
 import com.keyroom.com.keyroom.R;
 import com.keyroom.com.keyroom.Rest.ApiClient;
 import com.keyroom.com.keyroom.Rest.ApiInterface;
@@ -80,29 +81,44 @@ public class Peminjaman extends Fragment {
 
             @Override
             public void onLongClick(View view, int posi) {
-                com.keyroom.com.keyroom.Model.Peminjaman p = mPeminjaman.get(posi);
-                final AlertDialog.Builder notif = new AlertDialog.Builder(getContext());
-                notif.setTitle("Kembalikan Kunci");
-                notif.setMessage("Ruang : "+p.getRuang()+" oleh "+p.getNama()+" Yakin Dikembalikan?" );
-                notif.setCancelable(false);
-                notif.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                final com.keyroom.com.keyroom.Model.Peminjaman p = mPeminjaman.get(posi);
+                if (p.getStatus().equals("selesai")){
+                    Toast.makeText(getContext(), "ruang kelas tersedia", Toast.LENGTH_SHORT).show();
+                }else{
+                    final AlertDialog.Builder notif = new AlertDialog.Builder(getContext());
+                    notif.setTitle("Kembalikan Kunci");
+                    notif.setMessage("Ruang : "+p.getRuang()+" oleh "+p.getNama()+ " yakin dikembalikan ?" );
+                    notif.setCancelable(false);
+                    notif.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Call<PostPutDellPeminjaman> kembalikan = mApiInterface.pengembalian(p.getId(), p.getId_kelas());
+                            kembalikan.enqueue(new Callback<PostPutDellPeminjaman>() {
+                                @Override
+                                public void onResponse(Call<PostPutDellPeminjaman> call, Response<PostPutDellPeminjaman> response) {
+                                    Toast.makeText(getContext(), "Sukses", Toast.LENGTH_SHORT).show();
+                                    initialize();
+                                }
 
+                                @Override
+                                public void onFailure(Call<PostPutDellPeminjaman> call, Throwable t) {
+                                    Toast.makeText(getContext(), "Something Wrong "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    initialize();
+                                }
+                            });
 
-                        Toast.makeText(getContext(), "Sukses", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        }
+                    });
 
-                notif.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        notif.create().hide();
-                    }
-                });
+                    notif.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            notif.create().hide();
+                        }
+                    });
 
-                notif.create().show();
-
+                    notif.create().show();
+                }
             }
         }));
 

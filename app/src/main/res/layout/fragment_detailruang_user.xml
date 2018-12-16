@@ -53,10 +53,10 @@
                     android:layout_marginHorizontal="8dp"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:weightSum="10">
 
                     <LinearLayout
-                        android:layout_weight="1"
+                        android:layout_weight="9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -79,15 +79,32 @@
 
                     </LinearLayout>
 
-                    <ImageView
+                    <RelativeLayout
                         android:layout_weight="1"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:src="@drawable/ic_available"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp">
+                        <ImageView
+                            android:id="@+id/ic_status"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:gravity="center_horizontal"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/ic_available" />
+                        <TextView
+                            android:id="@+id/tv_status"
+                            android:layout_below="@+id/ic_status"
+                            android:gravity="center_horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="Tersedia"/>
+
+
+                    </RelativeLayout>
 
                 </LinearLayout>
+
+
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView

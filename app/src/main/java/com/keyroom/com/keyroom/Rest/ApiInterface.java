@@ -91,6 +91,12 @@ public interface ApiInterface {
                                      @Part("id_user") RequestBody id_user,
                                      @Part("status")  RequestBody status,
                                      @Part("id_admin") RequestBody id_admin);
+
+    @FormUrlEncoded
+    @POST("Peminjaman/kembalikan")
+    Call<PostPutDellPeminjaman> pengembalian (@Field("id") String id,
+                                    @Field("id_kelas") String id_kelas);
+
     //   get all Peminjaman
     @GET("Peminjaman")
     Call<GetPeminjaman> getpeminjaman();

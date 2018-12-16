@@ -54,6 +54,8 @@ public class DetailRuangFragmentUser extends Fragment {
     public void initialize(){
         //init
         final ImageView img_poster = viw.findViewById(R.id.img_detailruang_user);
+        final ImageView img_status = viw.findViewById(R.id.ic_status);
+        final TextView txv_status = viw.findViewById(R.id.tv_status);
         final TextView txv_namaruangan = viw.findViewById(R.id.txv_namaruang_detail);
         final TextView txv_lokasi = viw.findViewById(R.id.txv_lokasi_detail);
         final RecyclerView mRecyclerView = viw.findViewById(R.id.recycler_jadwl_detail);
@@ -71,6 +73,14 @@ public class DetailRuangFragmentUser extends Fragment {
 
                 // set textview
                 Glide.with(getContext()).load(ApiClient.BASE_ASSETS+mKelas.getImg()).into(img_poster);
+                if(mKelas.getStatus().equals("tersedia")){
+                    img_status.setImageResource(R.drawable.ic_available);
+                    txv_status.setText("Tersedia");
+                }
+                else{
+                    img_status.setImageResource(R.drawable.ic_notavailable);
+                    txv_status.setText("tidak tersedia");
+                }
                 txv_namaruangan.setText(mKelas.getRuang());
                 txv_lokasi.setText("Lokasi : "+mKelas.getLokasi());
 
