@@ -89,8 +89,10 @@ public class HomeAdmin extends Fragment {
                 DetailRuang detailfragAdm = new DetailRuang();
                 detailfragAdm.setArguments(bundle); // memasukkan bundle ke fragment detail ruangan
 
-                getActivity().getSupportFragmentManager().beginTransaction().
-                        replace(R.id.frament_container_admin,detailfragAdm).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .add(new HomeAdmin(),"HomeFragment")
+                        .addToBackStack("HomeFragment")
+                        .replace(R.id.frament_container_admin,detailfragAdm).commit();
             }
             @Override
             public void onLongClick(View view, int posi) { }

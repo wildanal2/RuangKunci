@@ -59,8 +59,7 @@
                 android:layout_weight="2"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_margin="3dp"
-                app:srcCompat="@drawable/centang" />
+                android:layout_margin="3dp" />
 
         </LinearLayout>
 

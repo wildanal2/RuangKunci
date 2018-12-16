@@ -41,9 +41,16 @@ public class RecyclerAdapterKelas extends RecyclerView.Adapter<RecyclerAdapterKe
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Kelas kls = mKelas.get(position);
+
+        Glide.with(mCntex).load(ApiClient.BASE_ASSETS+kls.getImg()).into(holder.img_poster);
+        if (kls.getStatus().equals("tersedia")){
+            holder.img_status.setImageResource(R.drawable.ic_available);
+        }else {
+            holder.img_status.setImageResource(R.drawable.ic_notavailable);
+        }
+
         holder.namakelas.setText(kls.getRuang());
         holder.lokasi.setText(kls.getLokasi());
-        Glide.with(mCntex).load(ApiClient.BASE_ASSETS+kls.getImg()).into(holder.img_poster);
     }
 
     @Override

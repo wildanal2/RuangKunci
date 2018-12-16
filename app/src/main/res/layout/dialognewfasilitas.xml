@@ -31,6 +31,7 @@
             android:id="@+id/et_namafasilitas_admin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="25"
             />
         <TextView
             android:layout_marginTop="10dp"
@@ -42,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="5"
+            android:maxLength="2"
             android:inputType="number"/>
         <LinearLayout
             android:orientation="horizontal"
@@ -51,6 +53,7 @@
             android:layout_marginVertical="10dp">
 
             <Button
+                android:id="@+id/btn_batal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Batal"

@@ -23,135 +23,156 @@
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_cancle"/>
         </RelativeLayout>
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hari"/>
 
-        <EditText
-            android:id="@+id/et_hari_newjadwal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="hari"
-            />
-
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Matakuliah"/>
-
-        <EditText
-            android:id="@+id/et_matkul_newjadwal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="nama matakuliah"
-            />
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Kelas"/>
-
-        <EditText
-            android:id="@+id/et_kelas_newjadwal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="nama kelas" />
-
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pengajar"/>
-
-        <EditText
-            android:id="@+id/et_dosen_newjadwal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="dosen pengajar"
-            />
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
+        <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/et_hari_newjadwal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Hari"
+                android:inputType="text"
+                android:maxLength="10"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/et_matkul_newjadwal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Matakuliah"
+                android:inputType="text"
+                android:maxLength="35"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/et_kelas_newjadwal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nama Kelas"
+                android:inputType="text"
+                android:maxLength="15"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/et_dosen_newjadwal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dosen pengajar"
+                android:inputType="text"
+                android:maxLength="45"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:layout_marginTop="10dp"
+                    android:id="@+id/jm"
+                    android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Waktu Mulai" />
-                <EditText
+                    android:text="Jam mulai"/>
+                <TextView
                     android:id="@+id/et_waktmulai_newjadwal"
+                    android:layout_below="@+id/jm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:inputType="number"
-                    android:hint="jam mulai"/>
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+                    android:layout_marginTop="-3dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="00:00"
+                    android:textColor="#000"
+                    android:maxLength="15"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:layout_marginTop="10dp"
+                    android:id="@+id/jm2"
+                    android:layout_alignParentStart="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Waktu Selesai" />
-                <EditText
+                    android:text="Jam selesai"/>
+                <TextView
                     android:id="@+id/et_wktuselesai_newjadwal"
+                    android:layout_below="@+id/jm2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:inputType="number"
-                    android:hint="jam selesai"/>
-            </LinearLayout>
+                    android:layout_marginTop="-3dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="00:00"
+                    android:textColor="#000"
+                    android:maxLength="15"
+                    android:textSize="18sp" />
+            </RelativeLayout>
         </LinearLayout>
+
         <LinearLayout
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
+            android:layout_marginHorizontal="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SKS" />
                 <EditText
                     android:id="@+id/et_jmlhsks_newjadwal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="5"
+                    android:layout_marginHorizontal="10dp"
+                    android:hint="Jumlah sks"
                     android:inputType="number"
-                    android:hint="jumlah SKS"/>
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+                    android:maxLength="1"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Jam" />
                 <EditText
                     android:id="@+id/et_jmlahjam_newjadwal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="5"
+                    android:layout_marginHorizontal="10dp"
+                    android:hint="Jumlah jam"
                     android:inputType="number"
-                    android:hint="jumlah jam"/>
-            </LinearLayout>
+                    android:maxLength="1"/>
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -160,6 +181,7 @@
             android:layout_marginVertical="20dp">
 
             <Button
+                android:id="@+id/btn_backkk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Batal"
@@ -167,6 +189,7 @@
 
             <Button
                 android:id="@+id/btn_saveNewjadwal"
+                android:layout_marginLeft="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tambahkan"

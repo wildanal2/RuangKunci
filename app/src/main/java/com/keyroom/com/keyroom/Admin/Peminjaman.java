@@ -82,13 +82,15 @@ public class Peminjaman extends Fragment {
             public void onLongClick(View view, int posi) {
                 com.keyroom.com.keyroom.Model.Peminjaman p = mPeminjaman.get(posi);
                 final AlertDialog.Builder notif = new AlertDialog.Builder(getContext());
-                notif.setMessage("Kembalikan Kunci : "+p.getKelas()+"Yakin Akan Dikembalikan?" );
+                notif.setTitle("Kembalikan Kunci");
+                notif.setMessage("Ruang : "+p.getRuang()+" oleh "+p.getNama()+" Yakin Dikembalikan?" );
                 notif.setCancelable(false);
                 notif.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getContext(), "Sukses", Toast.LENGTH_SHORT).show();
 
+
+                        Toast.makeText(getContext(), "Sukses", Toast.LENGTH_SHORT).show();
                     }
                 });
 

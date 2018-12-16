@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +63,8 @@ public class DetailRuang extends Fragment {
     public void initialize(){
         //init from layout
         final ImageView img_poster = viw.findViewById(R.id.img_detailruang_admin);
+        final ImageView img_status = viw.findViewById(R.id.ic_status);
+        final TextView txv_status = viw.findViewById(R.id.tv_status);
         final TextView txv_namaruangan = viw.findViewById(R.id.txv_namaruang_detail_admin);
         final TextView txv_lokasi = viw.findViewById(R.id.txv_lokasi_detail_admin);
         final RecyclerView mRecyclerView = viw.findViewById(R.id.recycler_jadwl_detail_admin);
@@ -69,6 +74,20 @@ public class DetailRuang extends Fragment {
 
         //init apiInterface
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        Toolbar toolbar = (Toolbar) viw.findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //clear 1 stack
+                getActivity().getSupportFragmentManager().popBackStack();
+                //moved to home admin fragment
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frament_container_admin,new HomeAdmin()).commit();
+            }
+        });
+
+
 
         Call<GetDetailKelas> getDetail = mApiInterface.getDetail(bndl.getString("id"));
         getDetail.enqueue(new Callback<GetDetailKelas>() {
@@ -81,6 +100,15 @@ public class DetailRuang extends Fragment {
 
                 // set textview
                 Glide.with(getContext()).load(ApiClient.BASE_ASSETS+mKelas.getImg()).into(img_poster);
+                if (mKelas.getStatus().equals("tersedia")){
+                    img_status.setImageResource(R.drawable.ic_available);
+                    txv_status.setText("Tersedia");
+                    btn_pinjam.setBackgroundResource(R.drawable.btn_shapepinjam);
+                }else {
+                    img_status.setImageResource(R.drawable.ic_notavailable);
+                    txv_status.setText("Tidak Tersedia");
+                    btn_pinjam.setBackgroundResource(R.drawable.btn_shapenotavail);
+                }
                 txv_namaruangan.setText(mKelas.getRuang());
                 txv_lokasi.setText("Lokasi : "+mKelas.getLokasi());
 
@@ -110,9 +138,16 @@ public class DetailRuang extends Fragment {
         btn_pinjam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity().getApplicationContext(),MeminjamKelas.class);
-                i.putExtra("id_kelas",mKelas.getId());
-                getActivity().startActivity(i);
+                if (mKelas.getStatus().equals("tersedia")) {
+                    Intent i = new Intent(getActivity().getApplicationContext(), MeminjamKelas.class);
+                    i.putExtra("id_kelas", mKelas.getId());
+                    getActivity().startActivity(i);
+                }else {
+                    AlertDialog.Builder notif = new AlertDialog.Builder(getContext());
+                    notif.setMessage("Kelas Tidak Tersedia");
+                    notif.setCancelable(true);
+                    notif.show();
+                }
             }
         });
     }

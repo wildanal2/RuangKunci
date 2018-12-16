@@ -1,6 +1,8 @@
 package com.keyroom.com.keyroom.Admin;
 
 import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -15,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -42,6 +46,7 @@ public class DetailRuangManagerFragmentAdmin extends Fragment {
     View viw;
     private ApiInterface mApiInterface;
     Kelas mKelas;
+    TimePickerDialog time_dialog;
 
 
     @Override
@@ -108,12 +113,20 @@ public class DetailRuangManagerFragmentAdmin extends Fragment {
 
                 // init data dari layoutdialog
                 Button btn_save = dialog_addfasilitas.findViewById(R.id.btn_saveNewfasilitas);
-                ImageView btn_close = dialog_addfasilitas.findViewById(R.id.btn_close_dialog);
+                ImageView btn_close1 = dialog_addfasilitas.findViewById(R.id.btn_close_dialog);
+                Button btn_batal = dialog_addfasilitas.findViewById(R.id.btn_batal);
+
                 final EditText et_namafasilitas =dialog_addfasilitas.findViewById(R.id.et_namafasilitas_admin);
                 final EditText et_jumlahfasilitas =dialog_addfasilitas.findViewById(R.id.et_jumlahfasilitas_admin);
 
-//                btn_close.setEnabled(true);
-                btn_close.setOnClickListener(new View.OnClickListener() {
+//              btn_close dialogg
+                btn_batal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog_addfasilitas.hide();
+                    }
+                });
+                btn_close1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         dialog_addfasilitas.hide();
@@ -161,20 +174,54 @@ public class DetailRuangManagerFragmentAdmin extends Fragment {
                 final Dialog dialog_addjadwal = new Dialog(getActivity());
                 dialog_addjadwal.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog_addjadwal.setContentView(R.layout.dialognewjadwal);
+                dialog_addjadwal.setCancelable(false);
 
                 // init data inputan layoutdialog
                 final EditText hari = dialog_addjadwal.findViewById(R.id.et_hari_newjadwal);
                 final EditText matkul = dialog_addjadwal.findViewById(R.id.et_matkul_newjadwal);
                 final EditText kelas = dialog_addjadwal.findViewById(R.id.et_kelas_newjadwal);
                 final EditText dosen = dialog_addjadwal.findViewById(R.id.et_dosen_newjadwal);
-                final EditText jammulai = dialog_addjadwal.findViewById(R.id.et_waktmulai_newjadwal);
-                final EditText jamselesai = dialog_addjadwal.findViewById(R.id.et_wktuselesai_newjadwal);
+                final TextView jammulai = dialog_addjadwal.findViewById(R.id.et_waktmulai_newjadwal);
+                final TextView jamselesai = dialog_addjadwal.findViewById(R.id.et_wktuselesai_newjadwal);
                 final EditText jmlahsks = dialog_addjadwal.findViewById(R.id.et_jmlhsks_newjadwal);
                 final EditText jmlahjam = dialog_addjadwal.findViewById(R.id.et_jmlahjam_newjadwal);
                 // button
                 Button btn_savenewjadwal = dialog_addjadwal.findViewById(R.id.btn_saveNewjadwal);
+                Button btn_batal = dialog_addjadwal.findViewById(R.id.btn_backkk);
+                ImageView btn_close = dialog_addjadwal.findViewById(R.id.btn_close_dialog);
+
+                // jamm sett mulai
+                jammulai.setPaintFlags(jammulai.getPaintFlags()|Paint.UNDERLINE_TEXT_FLAG);
+                jammulai.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        time_dialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                                jammulai.setText(String.format("%02d:%02d", hourOfDay, minutes));
+                            }
+                        }, 0, 0, true);
+                        time_dialog.show();
+                    }
+                });
+
+                // jamm sett selesai
+                jamselesai.setPaintFlags(jammulai.getPaintFlags()|Paint.UNDERLINE_TEXT_FLAG);
+                jamselesai.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        time_dialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                                jamselesai.setText(String.format("%02d:%02d", hourOfDay, minutes));
+                            }
+                        }, 0, 0, true);
+                        time_dialog.show();
+                    }
+                });
 
 
+                // event btn save
                 btn_savenewjadwal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -201,6 +248,20 @@ public class DetailRuangManagerFragmentAdmin extends Fragment {
                                 Toast.makeText(getContext(),"Something Worng : "+t.getMessage(),Toast.LENGTH_LONG).show();
                             }
                         });
+                    }
+                });
+
+                // event btn cancel
+                btn_batal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog_addjadwal.hide();
+                    }
+                });
+                btn_close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog_addjadwal.hide();
                     }
                 });
 

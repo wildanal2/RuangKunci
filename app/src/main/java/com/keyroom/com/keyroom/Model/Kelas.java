@@ -11,17 +11,27 @@ public class Kelas {
     private String nama_lab;
     @SerializedName("lokasi")
     private String lokasi;
+    @SerializedName("status")
+    private String status;
     @SerializedName("img")
     private  String img;
 
     public Kelas() { }
 
-    public Kelas(String id, String ruang, String nama_lab, String lokasi, String img) {
+    public Kelas(String id, String ruang, String nama_lab, String lokasi, String status, String img) {
         this.id = id;
         this.ruang = ruang;
         this.nama_lab = nama_lab;
         this.lokasi = lokasi;
+        this.status = status;
         this.img = img;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getId() {
