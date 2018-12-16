@@ -20,7 +20,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/editTextNama"
+            android:id="@+id/editTextusername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Usrname"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/editTextKelas"
+            android:id="@+id/editTextpasswod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
@@ -42,7 +42,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/buttonLihat"
+        android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login" />

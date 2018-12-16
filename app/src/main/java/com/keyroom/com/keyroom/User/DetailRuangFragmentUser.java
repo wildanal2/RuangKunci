@@ -19,10 +19,12 @@ import com.bumptech.glide.Glide;
 import com.keyroom.com.keyroom.Adapter.RecyclerAdapterFasilitas;
 import com.keyroom.com.keyroom.Adapter.RecyclerAdapterJadwal;
 import com.keyroom.com.keyroom.Adapter.RecyclerAdapterKelas;
+import com.keyroom.com.keyroom.Adapter.RecyclerAdapterRiwayatPeminjam;
 import com.keyroom.com.keyroom.Model.Fasilitas;
 import com.keyroom.com.keyroom.Model.GetDetailKelas;
 import com.keyroom.com.keyroom.Model.Jadwal;
 import com.keyroom.com.keyroom.Model.Kelas;
+import com.keyroom.com.keyroom.Model.Peminjaman;
 import com.keyroom.com.keyroom.R;
 import com.keyroom.com.keyroom.Rest.ApiClient;
 import com.keyroom.com.keyroom.Rest.ApiInterface;
@@ -60,6 +62,7 @@ public class DetailRuangFragmentUser extends Fragment {
         final TextView txv_lokasi = viw.findViewById(R.id.txv_lokasi_detail);
         final RecyclerView mRecyclerView = viw.findViewById(R.id.recycler_jadwl_detail);
         final RecyclerView mRecyclerViewFasilitas = viw.findViewById(R.id.recycler_fasilitas_detail_user);
+        final RecyclerView mRecyclerViewRiwayat = viw.findViewById (R.id.recycler_riwayat);
 
         mApiInterface = ApiClient.getClient().create(ApiInterface.class);
 
@@ -70,6 +73,7 @@ public class DetailRuangFragmentUser extends Fragment {
                 mKelas = response.body().getDataKelas();
                 List<Jadwal> mjadwal = response.body().getListDatajadwal();
                 List<Fasilitas> mFasilitas = response.body().getListFasilitas();
+                List<Peminjaman> mPeminjaman = response.body().getListPeminjaman();
 
                 // set textview
                 Glide.with(getContext()).load(ApiClient.BASE_ASSETS+mKelas.getImg()).into(img_poster);
@@ -83,6 +87,11 @@ public class DetailRuangFragmentUser extends Fragment {
                 }
                 txv_namaruangan.setText(mKelas.getRuang());
                 txv_lokasi.setText("Lokasi : "+mKelas.getLokasi());
+
+                // init recycler Riwayat
+                RecyclerAdapterRiwayatPeminjam mAdapterriwayat = new RecyclerAdapterRiwayatPeminjam(getContext(),mPeminjaman);
+                mRecyclerViewRiwayat.setLayoutManager(new LinearLayoutManager(getActivity()));
+                mRecyclerViewRiwayat.setAdapter(mAdapterriwayat);
 
                 // init recycler jadwal
                 RecyclerAdapterJadwal mAdapter = new RecyclerAdapterJadwal(mjadwal);

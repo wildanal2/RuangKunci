@@ -24,11 +24,11 @@ import retrofit2.http.Part;
 
 public interface ApiInterface {
 
-//    Login
-//    @FormUrlEncoded
-//    @POST("Login")
-//    Call<PostPutDellKaryawan> getLogin(@Field("nohp") String nohp,
-//                                       @Field("password") String password);
+    //    Login
+    @FormUrlEncoded
+    @POST("Login")
+    Call<PostPutDellUser> getLogin(@Field("nim") String nim,
+                                   @Field("password") String password);
 
 //   get all Kelas
     @GET("Ruangan/RuanganAll")
