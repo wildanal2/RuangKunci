@@ -101,4 +101,9 @@ public interface ApiInterface {
     @GET("Peminjaman")
     Call<GetPeminjaman> getpeminjaman();
 
+    //    POst Fasilitas
+    @FormUrlEncoded
+    @POST("User/User_byid")
+    Call<PostPutDellUser> detailUser (@Field("id") String id);
+
 }
