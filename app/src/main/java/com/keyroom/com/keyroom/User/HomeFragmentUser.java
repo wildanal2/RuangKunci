@@ -58,8 +58,10 @@ public class HomeFragmentUser extends Fragment {
                 DetailRuangFragmentUser detailfrag = new DetailRuangFragmentUser();
                 detailfrag.setArguments(bundle); // memasukkan bundle ke fragment detail ruangan
 
-                getActivity().getSupportFragmentManager().beginTransaction().
-                        add(R.id.frament_container_user,detailfrag).commit();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .add(new HomeFragmentUser(),"HomeFragment")
+                        .addToBackStack("HomeFragment")
+                        .replace(R.id.frament_container_user,detailfrag).commit();
                         //replace(R.id.frament_container_user,new DetailRuangFragmentUser()).commit();
             }
             @Override

@@ -3,6 +3,8 @@ package com.keyroom.com.keyroom.Model;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
+    @SerializedName("id")
+    String id;
     @SerializedName("nim")
     String nim;
     @SerializedName("nama")
@@ -18,7 +20,8 @@ public class User {
     @SerializedName("level")
     String level;
 
-    public User(String nim, String nama, String email, String kelas, String password, String img, String level) {
+    public User(String id, String nim, String nama, String email, String kelas, String password, String img, String level) {
+        this.id = id;
         this.nim = nim;
         this.nama = nama;
         this.email = email;
@@ -26,6 +29,14 @@ public class User {
         this.password = password;
         this.img = img;
         this.level = level;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getKelas() {

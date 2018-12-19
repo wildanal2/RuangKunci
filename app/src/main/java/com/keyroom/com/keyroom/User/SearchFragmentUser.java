@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.keyroom.com.keyroom.Adapter.RecyclerAdapterKelas;
+import com.keyroom.com.keyroom.Listener.ClickListener;
+import com.keyroom.com.keyroom.Listener.RecyclerTouchListener;
 import com.keyroom.com.keyroom.Model.GetKelas;
 import com.keyroom.com.keyroom.Model.Kelas;
 import com.keyroom.com.keyroom.R;
@@ -43,6 +45,24 @@ public class SearchFragmentUser extends Fragment {
         mRecyclerView = v.findViewById(R.id.recyler_search_user);
 
         initialize();
+        // recycler touchlistener
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), mRecyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int posi) {
+                Bundle bundle = new Bundle();
+                bundle.putString("id",mKelas.get(posi).getId());  // mengisi string yang akan dikirim
+
+                DetailRuangFragmentUser detailfrag = new DetailRuangFragmentUser();
+                detailfrag.setArguments(bundle); // memasukkan bundle ke fragment detail ruangan
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .add(new SearchFragmentUser(),"SearchFragment")
+                        .addToBackStack("SearchFragment")
+                        .add(R.id.frament_container_user,detailfrag).commit();
+            }
+            @Override
+            public void onLongClick(View view, int posi) { }
+        }));
         return v;
     }
 

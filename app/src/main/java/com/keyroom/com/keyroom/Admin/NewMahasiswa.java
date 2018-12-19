@@ -20,7 +20,7 @@ import retrofit2.http.Field;
 public class NewMahasiswa extends AppCompatActivity {
 
     EditText nim, nama, email, password,kelas;
-    Button btn_save;
+    Button btn_save,btn_batal;
     private ApiInterface mApiInterface;
 
 
@@ -67,6 +67,14 @@ public class NewMahasiswa extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"save gagal",Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+
+        btn_batal = findViewById(R.id.buttonCancel);
+        btn_batal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

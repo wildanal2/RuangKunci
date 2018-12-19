@@ -10,10 +10,6 @@
         android:icon="@drawable/ic_peminjaman"
         android:title="Peminjaman"/>
     <item
-        android:id="@+id/nav_kelas_admin"
-        android:icon="@drawable/ic_kelasmanager_black"
-        android:title="kelas Manager"/>
-    <item
         android:id="@+id/nav_setting_admin"
         android:icon="@drawable/ic_settings"
         android:title="Setting"/>

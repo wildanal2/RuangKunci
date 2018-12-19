@@ -27,6 +27,12 @@
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"/>
 
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbarpeminjaman"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="?attr/homeAsUpIndicator" />
+
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 

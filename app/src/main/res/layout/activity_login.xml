@@ -15,34 +15,43 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/logo" />
 
-    <android.support.design.widget.TextInputLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp">
 
-        <EditText
-            android:id="@+id/editTextusername"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Usrname"
-            android:inputType="textCapWords" />
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/editTextusername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username / Nim"
+                android:inputType="textCapWords" />
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editTextpasswod"
+        <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textCapCharacters" />
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/editTextpasswod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password" />
+
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/buttonLogin"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login" />

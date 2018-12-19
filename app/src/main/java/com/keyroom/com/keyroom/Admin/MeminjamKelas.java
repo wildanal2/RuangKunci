@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -45,6 +46,7 @@ public class MeminjamKelas extends AppCompatActivity {
     ApiInterface mApi;
     User mUser;
     private Intent intnt;
+    Toolbar tb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +69,20 @@ public class MeminjamKelas extends AppCompatActivity {
 
         mApi = ApiClient.getClient().create(ApiInterface.class);
 
+        tb = findViewById(R.id.toolbarpeminjaman);
+        setSupportActionBar(tb);
+        getSupportActionBar().setTitle("");
 
     }
 
     void init_listener(){
+
+        tb.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         //eksekusi button cari
         btn_find.setOnClickListener(new View.OnClickListener() {
@@ -217,45 +229,49 @@ public class MeminjamKelas extends AppCompatActivity {
     }
 
     private void meminjam_kelas(){
-        //progess dialog
-        final ProgressDialog process = new ProgressDialog(MeminjamKelas.this);
-        process.setTitle("Please Wait ..");
-        process.setMessage("Processing ..");
-        process.setCancelable(false);
-        process.show();
+        if (imagePath.equals("")){
+            Toast.makeText(getApplicationContext(),"Foto wajib diisi",Toast.LENGTH_LONG).show();
+        }else {
+            //progess dialog
+            final ProgressDialog process = new ProgressDialog(MeminjamKelas.this);
+            process.setTitle("Please Wait ..");
+            process.setMessage("Processing ..");
+            process.setCancelable(false);
+            process.show();
 
-        MultipartBody.Part body_img = null;
-        // jika file upload tidak kosong
-        if (!imagePath.isEmpty()){
-            //File creating from selected URL
-            File file = new File(imagePath);
-            // create RequestBody instance from file
-            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            // MultipartBody.Part is used to send also the actual file name
-            body_img = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
+            MultipartBody.Part body_img = null;
+            // jika file upload tidak kosong
+            if (!imagePath.isEmpty()){
+                //File creating from selected URL
+                File file = new File(imagePath);
+                // create RequestBody instance from file
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                // MultipartBody.Part is used to send also the actual file name
+                body_img = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
+            }
+
+            RequestBody reqid_kelas = MultipartBody.create(MediaType.parse("multipart/form-data"),intnt.getStringExtra("id_kelas"));
+            RequestBody reqid_user = MultipartBody.create(MediaType.parse("multipart/form-data"),id_user);
+            RequestBody reqstatus = MultipartBody.create(MediaType.parse("multipart/form-data"),"dipinjam");
+            RequestBody reqid_admin = MultipartBody.create(MediaType.parse("multipart/form-data"),"3");
+
+
+            Call<PostPutDellPeminjaman> cari = mApi.meminjamBaru(body_img,reqid_kelas,reqid_user,reqstatus,reqid_admin);
+            cari.enqueue(new Callback<PostPutDellPeminjaman>() {
+                @Override
+                public void onResponse(Call<PostPutDellPeminjaman> call, Response<PostPutDellPeminjaman> response) {
+                    process.hide();
+                    Toast.makeText(getApplicationContext(),"Sukses",Toast.LENGTH_LONG).show();
+                    finish();
+                }
+
+                @Override
+                public void onFailure(Call<PostPutDellPeminjaman> call, Throwable t) {
+                    process.hide();
+                    Toast.makeText(getApplicationContext(),"Something Worng  "+t.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            });
         }
-
-        RequestBody reqid_kelas = MultipartBody.create(MediaType.parse("multipart/form-data"),intnt.getStringExtra("id_kelas"));
-        RequestBody reqid_user = MultipartBody.create(MediaType.parse("multipart/form-data"),id_user);
-        RequestBody reqstatus = MultipartBody.create(MediaType.parse("multipart/form-data"),"dipinjam");
-        RequestBody reqid_admin = MultipartBody.create(MediaType.parse("multipart/form-data"),"3");
-
-
-        Call<PostPutDellPeminjaman> cari = mApi.meminjamBaru(body_img,reqid_kelas,reqid_user,reqstatus,reqid_admin);
-        cari.enqueue(new Callback<PostPutDellPeminjaman>() {
-            @Override
-            public void onResponse(Call<PostPutDellPeminjaman> call, Response<PostPutDellPeminjaman> response) {
-                process.hide();
-                Toast.makeText(getApplicationContext(),"Sukses",Toast.LENGTH_LONG).show();
-                finish();
-            }
-
-            @Override
-            public void onFailure(Call<PostPutDellPeminjaman> call, Throwable t) {
-                process.hide();
-                Toast.makeText(getApplicationContext(),"Something Worng  "+t.getMessage(),Toast.LENGTH_LONG).show();
-            }
-        });
 
     }
 

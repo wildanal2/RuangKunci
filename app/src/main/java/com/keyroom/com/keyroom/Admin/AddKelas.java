@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,35 +38,45 @@ import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class AddKelas extends Fragment {
+public class AddKelas extends AppCompatActivity {
 
-    View v;
     ApiInterface mApi;
     FloatingActionButton btnphoto;
     Button btn_save;
     String imagePath = "";
     ImageView mimage;
     EditText nama_ruang,lokasi_ruang,nama_Lab;
-
+    Toolbar tb;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_admin_addkelas,container,false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_admin_addkelas);
+
+        tb = findViewById(R.id.toolbarpeminjaman);
+        setSupportActionBar(tb);
+        getSupportActionBar().setTitle("");
 
         init_clicklistener();
-        return v;
     }
 
     private void init_clicklistener(){
         mApi = ApiClient.getClient().create(ApiInterface.class);
         // mengambil data dari layout
-        mimage = v.findViewById(R.id.image_addkelas);
-        nama_ruang = v.findViewById(R.id.et_namaruangnew_admin);
-        nama_Lab = v.findViewById(R.id.et_namalabruangnew_admin);
-        lokasi_ruang = v.findViewById(R.id.et_lokasiruangnew_admin);
+        mimage = findViewById(R.id.image_addkelas);
+        nama_ruang = findViewById(R.id.et_namaruangnew_admin);
+        nama_Lab = findViewById(R.id.et_namalabruangnew_admin);
+        lokasi_ruang = findViewById(R.id.et_lokasiruangnew_admin);
 
-        btnphoto = v.findViewById(R.id.btn_addphotokelas_admin);
-        btn_save = v.findViewById(R.id.btn_savekelas_admin);
+        btnphoto = findViewById(R.id.btn_addphotokelas_admin);
+        btn_save = findViewById(R.id.btn_savekelas_admin);
+
+        tb.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnphoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +93,7 @@ public class AddKelas extends Fragment {
             @Override
             public void onClick(View view) {
                 // progess dialog
-                final ProgressDialog process = new ProgressDialog(getActivity());
+                final ProgressDialog process = new ProgressDialog(AddKelas.this);
                 process.setTitle("Please Wait ..");
                 process.setMessage("uploading file..");
                 process.show();
@@ -105,15 +117,15 @@ public class AddKelas extends Fragment {
                     @Override
                     public void onResponse(Call<PostPutDellKelas> call, Response<PostPutDellKelas> response) {
                         process.hide();
-                        Toast.makeText(getContext(), "Sukses :"+response.body().getStatus()+" mssage : "+response.body().getMessage(),Toast.LENGTH_LONG).show();
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frament_container_admin,new KelasManager()).commit();
+                        Toast.makeText(AddKelas.this, "Sukses :"+response.body().getStatus()+" mssage : "+response.body().getMessage(),Toast.LENGTH_LONG).show();
+                        finish();
                     }
 
                     @Override
                     public void onFailure(Call<PostPutDellKelas> call, Throwable t) {
                         process.hide();
-                        Toast.makeText(getContext(), "Something Worng  "+t.getMessage(),Toast.LENGTH_LONG).show();
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frament_container_admin,new KelasManager()).commit();
+                        Toast.makeText(AddKelas.this, "Something Worng  "+t.getMessage(),Toast.LENGTH_LONG).show();
+                        finish();
                     }
                 });
             }
@@ -126,20 +138,20 @@ public class AddKelas extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == 10) {
             if (data == null) {
-                Toast.makeText(getContext(), "Gambar Gagal Di load",Toast.LENGTH_LONG).show();
+                Toast.makeText(AddKelas.this, "Gambar Gagal Di load",Toast.LENGTH_LONG).show();
                 return;
             }
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn,null, null, null);
+            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn,null, null, null);
             if (cursor != null) {
                 cursor.moveToFirst();
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                 imagePath = cursor.getString(columnIndex);
-                Glide.with(getActivity()).load(new File(imagePath)).into(mimage);
+                Glide.with(AddKelas.this).load(new File(imagePath)).into(mimage);
                 cursor.close();
             }else {
-                Toast.makeText(getContext(), "Gambar Gagal Di load",Toast.LENGTH_LONG).show();
+                Toast.makeText(AddKelas.this, "Gambar Gagal Di load",Toast.LENGTH_LONG).show();
             }
         }
     }

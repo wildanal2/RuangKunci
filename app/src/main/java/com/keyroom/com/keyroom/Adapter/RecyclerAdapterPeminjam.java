@@ -14,18 +14,21 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.keyroom.com.keyroom.Model.Kelas;
 import com.keyroom.com.keyroom.Model.Peminjaman;
+import com.keyroom.com.keyroom.Model.User;
 import com.keyroom.com.keyroom.R;
 import com.keyroom.com.keyroom.Rest.ApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerAdapterPeminjam extends RecyclerView.Adapter<RecyclerAdapterPeminjam.MyViewHolder>{
+public class RecyclerAdapterPeminjam extends RecyclerView.Adapter<RecyclerAdapterPeminjam.MyViewHolder> implements Filterable{
     private List<Peminjaman> mPeminjam;
+    private List<Peminjaman> mPeminjamFull;
     private Context mCntex;
 
     public RecyclerAdapterPeminjam(List<Peminjaman> mPeminjam, Context mCntex) {
         this.mPeminjam = mPeminjam;
+        mPeminjamFull = new ArrayList<>(mPeminjam);
         this.mCntex = mCntex;
     }
 
@@ -42,12 +45,51 @@ public class RecyclerAdapterPeminjam extends RecyclerView.Adapter<RecyclerAdapte
 
         holder.ruangan.setText(pmjmn.getRuang());
         holder.nama.setText(pmjmn.getNama());
-        holder.tanggal.setText(pmjmn.getMulai()+" -> ~");
+        if (pmjmn.getSelesai().equals("00:00:00")){
+            holder.tanggal.setText(pmjmn.getMulai()+" -> ~");
+        }else {
+            holder.tanggal.setText(pmjmn.getMulai()+" -> "+pmjmn.getSelesai());
+        }
         holder.status.setText(pmjmn.getStatus());
     }
 
     @Override
     public int getItemCount() { return mPeminjam.size(); }
+
+    @Override
+    public Filter getFilter() {
+        return mPeminjamanFilter;
+    }
+
+    private Filter mPeminjamanFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Peminjaman> filteredUser = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0){ // jika search kosong
+                filteredUser.addAll(mPeminjamFull);
+            }else {
+                String textfilter = constraint.toString().toLowerCase().trim();
+                for (Peminjaman p : mPeminjamFull){
+                    if (p.getRuang().toLowerCase().contains(textfilter)){
+                        filteredUser.add(p);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredUser;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mPeminjam.clear();
+            mPeminjam.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView ruangan,nama,tanggal,status;

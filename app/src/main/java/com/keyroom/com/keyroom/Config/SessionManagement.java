@@ -1,7 +1,10 @@
 package com.keyroom.com.keyroom.Config;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+
+import com.keyroom.com.keyroom.LoginActivity;
 
 import java.util.HashMap;
 
@@ -20,7 +23,6 @@ public class SessionManagement {
      private static final String IS_LOGIN = "IsLoggedIn";
      public static final String KEY_ID = "id";
      public static final String KEY_LEVEL = "level";
-     public static final String KEY_NAMA = "nama";
 
     public SessionManagement(Context mContext) {
         this.mContext = mContext;
@@ -28,29 +30,17 @@ public class SessionManagement {
         mEditor = mSharedPreference.edit();
     }
 
-    public void createLoginSession(String id, String nama,String level){
+    public void createLoginSession(String id, String level){
         // Storing login value as TRUE
          mEditor.putBoolean(IS_LOGIN, true);
          // Storing id
          mEditor.putString(KEY_ID,id );
-         // Storing nama
-         mEditor.putString(KEY_NAMA,nama );
         // Storing level
         mEditor.putString(KEY_LEVEL,level );
          mEditor.commit();
     }
 
     public HashMap<String, String> getUserInformation(){
-
-        HashMap<String,String> user = new HashMap<String, String>();
-        // user id
-        user.put(KEY_ID, mSharedPreference.getString(KEY_ID, null));
-        // user nama
-        user.put(KEY_NAMA, mSharedPreference.getString(KEY_NAMA, null));
-        return user;
-    }
-
-    public HashMap<String, String> getLevelInformation(){
 
         HashMap<String,String> user = new HashMap<String, String>();
         // user id
@@ -69,5 +59,8 @@ public class SessionManagement {
         mEditor.putBoolean(IS_LOGIN, false);
         mEditor.clear();
         mEditor.commit();
+        Intent i = new Intent(mContext,LoginActivity.class);
+        mContext.startActivity(i);
     }
+
 }

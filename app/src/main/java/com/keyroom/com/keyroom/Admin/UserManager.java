@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
 
@@ -27,7 +28,8 @@ public class UserManager extends AppCompatActivity {
     private ApiInterface mApiInterface;
     private RecyclerView mRecyclerView;
     private RecyclerAdapterUser mAdapter;
-    private List<User> mUser = new ArrayList<>();;
+    private List<User> mUser = new ArrayList<>();
+    FloatingActionButton newmhs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class UserManager extends AppCompatActivity {
         setContentView(R.layout.activity_user_manager);
 
         initialize();
+        initialize_listener();
     }
 
     private  void initialize(){
@@ -58,15 +61,36 @@ public class UserManager extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton b = findViewById(R.id.btn_new_mahasiswa);
-                b.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent ii = new Intent(UserManager.this,NewMahasiswa.class);
-                        startActivity(ii);
-                    }
-                });
+        SearchView searchkls = findViewById(R.id.search);
+        searchkls.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        newmhs = findViewById(R.id.btn_new_mahasiswa);
     }
 
+    private void initialize_listener(){
+        newmhs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ii = new Intent(UserManager.this,NewMahasiswa.class);
+                startActivity(ii);
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initialize();
+    }
 }

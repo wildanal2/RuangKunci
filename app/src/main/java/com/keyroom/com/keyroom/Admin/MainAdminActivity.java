@@ -51,14 +51,6 @@ public class MainAdminActivity extends AppCompatActivity {
                                     .replace(R.id.frament_container_admin,selectedfragment)
                                     .commit();
                             break;
-                        case R.id.nav_kelas_admin:
-                            selectedfragment = new KelasManager();
-                            getSupportFragmentManager().beginTransaction()
-                                    .add(new HomeAdmin(),"HomeFragment")
-                                    .addToBackStack("HomeFragment")
-                                    .replace(R.id.frament_container_admin,selectedfragment)
-                                    .commit();
-                            break;
                         case R.id.nav_setting_admin:
                             selectedfragment = new Setting();
                             getSupportFragmentManager().beginTransaction()

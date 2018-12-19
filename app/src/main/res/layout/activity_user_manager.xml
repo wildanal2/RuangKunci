@@ -25,6 +25,7 @@
             app:layout_scrollFlags="scroll|enterAlways">
 
             <android.support.v7.widget.SearchView
+                android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
@@ -49,13 +50,14 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_new_mahasiswa"
-        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
-        android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
-        android:src="@drawable/ic_add"/>
+        android:layout_marginBottom="20dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="#FCA300" />
 
 
 </android.support.design.widget.CoordinatorLayout>

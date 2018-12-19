@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFF">
 
     <android.support.v7.widget.CardView
         android:id="@+id/topbarakun"
@@ -15,6 +16,8 @@
 
             <ImageView
                 android:id="@+id/btn_setting_akun"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_settings"
@@ -35,18 +38,36 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/images"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_launcher_background" />
+            android:layout_gravity="center_horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/images"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@drawable/ic_launcher_background"
+                app:civ_border_width="1px"
+                app:civ_border_color="@color/colorPrimary"/>
+            <ImageView
+                android:id="@+id/edit_foto"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_edit"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="8dp"/>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:orientation="vertical">
 
@@ -55,41 +76,102 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="Nama" />
-
-            <TextView
-                android:id="@+id/txtnimakun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="Nim" />
+                android:textSize="18sp"
+                android:hint="Nama" />
 
             <TextView
                 android:id="@+id/txtkelasakun"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kelas" />
+                android:layout_marginBottom="10dp"
+                android:hint="Kelas" />
+
+            <TextView
+                android:id="@+id/txtnimakun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Nim" />
 
         </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/txtriwayat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
+    <LinearLayout
+        android:id="@+id/mid_lay"
         android:layout_below="@+id/linearatasakun"
-        android:text="Riwayat" />
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <android.support.v7.widget.RecyclerView
+        <TextView
+            android:id="@+id/bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/mid_lay"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_below="@+id/txtriwayat"
-        />
+        android:layout_marginTop="15dp">
+        <TextView
+            android:id="@+id/txtriwayat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:textColor="#000"
+            android:text="Riwayat" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:weightSum="6">
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/tv_kelas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kelas"/>
+            <TextView
+                android:layout_weight="2"
+                android:id="@+id/tv_nmlab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Lab"/>
+            <TextView
+                android:layout_weight="2"
+                android:id="@+id/tv_tgl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tanggal"/>
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"/>
+        </LinearLayout>
+        <View
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="3px"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyler_riwayatby"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/txtriwayat"
+            />
+    </LinearLayout>
 
 </RelativeLayout>

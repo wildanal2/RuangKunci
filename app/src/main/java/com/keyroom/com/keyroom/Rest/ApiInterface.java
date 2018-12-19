@@ -101,9 +101,25 @@ public interface ApiInterface {
     @GET("Peminjaman")
     Call<GetPeminjaman> getpeminjaman();
 
-    //    POst Fasilitas
+    //    get detail user by id
     @FormUrlEncoded
-    @POST("User/User_byid")
+    @POST("User/userbyid")
     Call<PostPutDellUser> detailUser (@Field("id") String id);
 
+    //   get riwayat peminjaman by nim
+    @FormUrlEncoded
+    @POST("Peminjaman/riwayatbyid")
+    Call<GetPeminjaman> riwayatbynim (@Field("nim") String nim);
+
+    @Multipart
+    @POST("User/updatefotouser")
+    Call<PostPutDellUser> fotobaru(@Part MultipartBody.Part file,
+                                             @Part("id") RequestBody id);
+
+    //   new Password
+    @FormUrlEncoded
+    @POST("User/gantipassword")
+    Call<PostPutDellUser> newpassword (@Field("id") String id,
+                                       @Field("newpassword") String NEWpassword,
+                                       @Field("oldpassword") String oldpassword);
 }
